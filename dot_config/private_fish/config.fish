@@ -3,13 +3,12 @@ if status is-interactive
 end
 
 # begin starship
-
 starship init fish | source
 
 # alias vim to neovim
-
 alias vim 'nvim'
+alias vimdiff 'nvim -d'
 
-# shortcuts for editing files
-alias ev 'nvim ~/.config/nvim/init.vim'
-alias ef 'nvim ~/.config/fish/config.fish'
+# shortcuts for editing dot files
+alias ev 'chezmoi edit ~/.config/nvim/init.vim'
+alias ef 'chezmoi edit ~/.config/fish/config.fish'
