@@ -17,3 +17,6 @@ alias ef 'chezmoi edit ~/.config/fish/config.fish'
 
 # set default editor to nvim
 set -gx EDITOR nvim
+
+# add homebrew to path
+eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
