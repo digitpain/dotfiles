@@ -20,3 +20,6 @@ alias ef 'chezmoi edit ~/.config/fish/config.fish'
 
 # set default editor to nvim
 set -gx EDITOR nvim
+
+# include user binaries in the shell path
+fish_add_path ~/.local/bin
