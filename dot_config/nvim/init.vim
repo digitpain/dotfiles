@@ -5,6 +5,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'lifepillar/vim-solarized8'
 Plug 'dag/vim-fish'
 Plug 'ethanholz/nvim-lastplace'
+Plug 'neovim/nvim-lspconfig'
 
 " Initialize plugin system (🗒️ install: https://github.com/junegunn/vimplug)
 call plug#end()
