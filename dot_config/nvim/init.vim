@@ -29,6 +29,7 @@ set so=999
 autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
 
 "enable lsp server for typescript 
+" https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 lua << EOF
 require'lspconfig'.tsserver.setup{}
 EOF
