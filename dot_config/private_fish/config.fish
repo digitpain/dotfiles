@@ -24,3 +24,6 @@ set -gx EDITOR nvim
 
 # include user binaries in the shell path
 fish_add_path ~/.local/bin
+
+function fish_greeting
+end
