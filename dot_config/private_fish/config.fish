@@ -19,6 +19,9 @@ alias ev 'chezmoi edit ~/.config/nvim/init.vim'
 alias ef 'chezmoi edit ~/.config/fish/config.fish'
 alias fishcfg 'source ~/.config/fish/config.fish'
 
+alias vs 'vim (sk)'
+alias js 'vim (find . -name "*.js" | sk -m)'
+
 # shortcuts for projects
 alias ac 'cd ~/Desktop/aesthetic.computer'
 
