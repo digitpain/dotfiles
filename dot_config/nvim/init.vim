@@ -88,7 +88,7 @@ local saga = require 'lspsaga'
 -- add your config value here
 -- default value
 -- use_saga_diagnostic_sign = true
--- error_sign = '',
+error_sign = '',
 -- warn_sign = '',
 -- hint_sign = '',
 -- infor_sign = '',
