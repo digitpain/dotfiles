@@ -49,4 +49,4 @@ set fish_vi_force_cursor true
 fish_vi_key_bindings
 
 # https://github.com/lotabout/skim/issues/3#issuecomment-272785980
-set $SKIM_DEFAULT_COMMAND 'git ls-tree -r --name-only HEAD || rg --files'
+set SKIM_DEFAULT_COMMAND git ls-tree -r --name-only HEAD || rg --files
