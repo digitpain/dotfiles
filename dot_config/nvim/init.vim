@@ -6,6 +6,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'dag/vim-fish'
 Plug 'ethanholz/nvim-lastplace'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " We recommend updating the parsers on update
 
 " Initialize plugin system (🗒️ install: https://github.com/junegunn/vimplug)
 call plug#end()
