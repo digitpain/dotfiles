@@ -29,14 +29,13 @@ set so=0 " 999
 " auto apply chezmoi edits: https://www.chezmoi.io/docs/how-to/#use-your-preferred-editor-with-chezmoi-edit-and-chezmoi-edit-config
 autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
 
-" enable lsp server for typescript 
-" https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 lua << EOF
-require'lspconfig'.tsserver.setup{}
-EOF
+-- enable lsp server 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 
-" setup lspsaga
-lua << EOF
+require'lspconfig'.tsserver.setup{}
+
+-- setup lspsaga
 local saga = require 'lspsaga'
 -- add your config value here
 -- default value
@@ -74,10 +73,10 @@ local saga = require 'lspsaga'
 -- like server_filetype_map = {metals = {'sbt', 'scala'}}
 -- server_filetype_map = {}
 
-saga.init_lsp_saga {
-  your custom option here
-}
+-- saga.init_lsp_saga {
+--   your custom option here
+-- }
 
-or --use default config
+-- or --use default config
 saga.init_lsp_saga()
 EOF
