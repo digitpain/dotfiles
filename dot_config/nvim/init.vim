@@ -6,7 +6,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'dag/vim-fish'
 Plug 'ethanholz/nvim-lastplace'
 Plug 'neovim/nvim-lspconfig'
-Plug 'neovim/lspsaga.nvim'
+Plug 'glepnir/lspsaga.nvim'
 
 " Initialize plugin system (🗒️ install: https://github.com/junegunn/vimplug)
 call plug#end()
