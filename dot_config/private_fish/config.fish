@@ -28,5 +28,9 @@ set -gx EDITOR nvim
 # include user binaries in the shell path
 fish_add_path ~/.local/bin
 
+# empty greeting
 function fish_greeting
 end
+
+#vim bindings
+fish_vi_key_bindings
