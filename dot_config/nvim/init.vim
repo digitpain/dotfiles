@@ -6,6 +6,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'dag/vim-fish'
 Plug 'ethanholz/nvim-lastplace'
 Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/lspsaga.nvim'
 
 " Initialize plugin system (🗒️ install: https://github.com/junegunn/vimplug)
 call plug#end()
@@ -33,3 +34,5 @@ autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
 lua << EOF
 require'lspconfig'.tsserver.setup{}
 EOF
+
+"setup lspsaga
