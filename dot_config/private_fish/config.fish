@@ -21,7 +21,7 @@ alias fishcfg 'source ~/.config/fish/config.fish'
 
 alias vs 'vim (sk)'
 alias js 'vim (find . -name "*.js" | sk -m -n !node_modules)'
-alias ff "sk -c 'git ls-tree -r --name-only HEAD || ag -l -g \"\"'"
+alias ff "vim (sk -c 'git ls-tree -r --name-only HEAD || ag -l -g \"\"')"
 
 # shortcuts for projects
 alias ac 'cd ~/Desktop/aesthetic.computer'
