@@ -40,6 +40,8 @@ set fish_cursor_insert line
 # Set the replace mode cursor to an underscore
 set fish_cursor_replace_one underscore
 
+set fish_vi_force_cursor true
+
 #vim bindings
 fish_vi_key_bindings
 
