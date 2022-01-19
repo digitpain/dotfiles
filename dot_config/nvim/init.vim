@@ -84,7 +84,7 @@ for _, lsp in ipairs(servers) do
 end
 
 -- setup lspsaga
--- local saga = require 'lspsaga'
+local saga = require 'lspsaga'
 -- add your config value here
 -- default value
 -- use_saga_diagnostic_sign = true
@@ -126,6 +126,6 @@ end
 -- }
 
 -- or --use default config
--- saga.init_lsp_saga()
+saga.init_lsp_saga()
 
 EOF
