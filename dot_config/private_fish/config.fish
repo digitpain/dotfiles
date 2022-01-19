@@ -20,7 +20,7 @@ alias ef 'chezmoi edit ~/.config/fish/config.fish'
 alias fishcfg 'source ~/.config/fish/config.fish'
 
 alias vs 'vim (sk)'
-alias js 'vim (find . -name "*.js" | sk -m)'
+alias js 'vim (find . -name "*.js" | sk -m -n !node_modules)'
 
 # shortcuts for projects
 alias ac 'cd ~/Desktop/aesthetic.computer'
