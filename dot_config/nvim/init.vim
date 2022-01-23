@@ -32,6 +32,9 @@ set shiftwidth=2
 set expandtab
 set smartindent
 
+" sign gutter
+set signcolumn="yes"
+
 " auto apply chezmoi edits: https://www.chezmoi.io/docs/how-to/#use-your-preferred-editor-with-chezmoi-edit-and-chezmoi-edit-config
 autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
 
