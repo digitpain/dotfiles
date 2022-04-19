@@ -13,3 +13,6 @@ alias vim 'nvim'
 # shortcuts for editing files
 alias ev 'nvim ~/.config/nvim/init.vim'
 alias ef 'nvim ~/.config/fish/config.fish'
+
+# shortcuts for aesthetic.computer
+alias webp 'fish ~/IdeaProjects/aesthetic.computer/system/public/disks/digitpain/webp.fish'
