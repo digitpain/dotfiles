@@ -1,7 +1,10 @@
 # jeffrey's fish config
 
-# add homebrew to path
-eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# add homebrew to path (only if we are on linux)
+switch (uname)
+    case Linux
+      eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+end
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
