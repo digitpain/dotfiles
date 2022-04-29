@@ -17,6 +17,9 @@ starship init fish | source
 alias vim 'nvim'
 alias vimdiff 'nvim -d'
 
+# get the ip address on macos
+alias ip 'ipconfig getifaddr en0'
+
 # shortcuts for editing dot files
 alias ev 'chezmoi edit ~/.config/nvim/init.vim'
 alias ef 'chezmoi edit ~/.config/fish/config.fish'
