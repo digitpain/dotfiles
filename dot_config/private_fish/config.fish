@@ -19,6 +19,7 @@ alias vimdiff 'nvim -d'
 
 # get the ip address on macos
 alias ip 'ipconfig getifaddr en0'
+alias wgeth 'echo 0x238c9c645c6EE83d4323A2449C706940321a0cBf'
 
 # shortcuts for editing dot files
 alias ev 'chezmoi edit ~/.config/nvim/init.vim'
