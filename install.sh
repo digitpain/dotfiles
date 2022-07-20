@@ -4,27 +4,56 @@
 # -u: exit on unset variables
 set -eu
 
-if ! chezmoi="$(command -v chezmoi)"; then
-  bin_dir="${HOME}/.local/bin"
-  chezmoi="${bin_dir}/chezmoi"
-  echo "Installing chezmoi to '${chezmoi}'" >&2
-  if command -v curl >/dev/null; then
-    chezmoi_install_script="$(curl -fsSL https://chezmoi.io/get)"
-  elif command -v wget >/dev/null; then
-    chezmoi_install_script="$(wget -qO- https://chezmoi.io/get)"
-  else
-    echo "To install chezmoi, you must have curl or wget installed." >&2
-    exit 1
-  fi
-  sh -c "${chezmoi_install_script}" -- -b "${bin_dir}"
-  unset chezmoi_install_script bin_dir
-fi
+create_symlinks() {
+  # Get the directory in which this script lives.
+  script_dir=$(dirname "$(readlink -f "$0")")
 
-# POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
-script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
+  # link fish config
+  rm -rf ~/.config/fish
+  ln -s $script_dir/dot_config/fish ~/.config/fish
 
-set -- init --apply --source="${script_dir}"
+  # link vim config
+  rm -rf ~/.config/nvim
+  ln -s $script_dir/dot_config/nvim ~/.config/nvim
 
-echo "Running 'chezmoi $*'" >&2
-# exec: replace current process with chezmoi
-exec "$chezmoi" "$@"
+  # link foot (a linux terminal client) config
+  rm -rf ~/.config/foot
+  ln -s $script_dir/dot_config/foot ~/.config/foot
+}
+
+install_fish() {
+  sudo add-apt-repository ppa:fish-shell/release-3 -y
+  sudo apt-get update
+  sudo apt-get install fish -y
+}
+
+install_neovim() {
+  sudo add-apt-repository ppa:neovim-ppa/unstable -y
+  sudo apt-get update
+  sudo apt-get install neovim -y
+}
+
+install_homebrew() {
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/codespace/.profile
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  sudo apt-get install build-essential
+  brew install gcc
+}
+
+install_starship() {
+  brew install starship
+}
+
+install_fonts() {
+  mkdir -p ~/.local/share/fonts
+  cd ~/.local/share/fonts && curl -fLo "Fira Code Retina Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/FiraCode/Retina/complete/Fira%20Code%20Retina%20Nerd%20Font%20Complete.ttf
+}
+
+install_fish
+install_neovim
+install_homebrew
+install_starship
+install_fonts
+
+create_symlinks

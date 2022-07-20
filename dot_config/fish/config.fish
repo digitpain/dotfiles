@@ -3,7 +3,7 @@
 # add homebrew to path (only if we are on linux)
 switch (uname)
     case Linux
-      eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
 
 if status is-interactive
@@ -14,7 +14,7 @@ end
 starship init fish | source
 
 # alias vim to neovim
-alias vim 'nvim'
+alias vim nvim
 alias vimdiff 'nvim -d'
 
 # get the ip address on macos
