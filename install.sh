@@ -47,7 +47,13 @@ install_starship() {
 
 install_fonts() {
   mkdir -p ~/.local/share/fonts
-  cd ~/.local/share/fonts && curl -fLo "Fira Code Retina Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/FiraCode/Retina/complete/Fira%20Code%20Retina%20Nerd%20Font%20Complete.ttf
+  cd ~/.local/share/fonts
+  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip 
+  rm -rf FiraCode
+  mkdir FiraCode
+  unzip FiraCode.zip -d FiraCode 
+  rm FiraCode.zip
+  cd -
 }
 
 install_fish
