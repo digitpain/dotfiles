@@ -16,6 +16,10 @@ create_symlinks() {
   rm -rf ~/.config/nvim
   ln -s $script_dir/dot_config/nvim ~/.config/nvim
 
+  # link starship config
+  rm -rf ~/.config/starship.toml
+  ln -s $script_dir/dot_config/starship.toml ~/.config/starship.toml
+
   # link foot (a linux terminal client) config
   rm -rf ~/.config/foot
   ln -s $script_dir/dot_config/foot ~/.config/foot
