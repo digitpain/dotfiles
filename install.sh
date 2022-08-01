@@ -49,6 +49,10 @@ install_starship() {
   brew install starship
 }
 
+install_fnm() {
+  brew install fnm
+}
+
 install_fonts() {
   mkdir -p ~/.local/share/fonts
   cd ~/.local/share/fonts
@@ -64,6 +68,7 @@ install_fish
 install_neovim
 install_homebrew
 install_starship
+install_fnm
 install_fonts
 
 create_symlinks
