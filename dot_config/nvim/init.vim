@@ -35,6 +35,13 @@ set nu
 " always scroll with cursor
 set so=0 " 999
 
+" folding
+set foldmethod=indent
+set foldnestmax=10
+" set nofoldenable
+set foldlevelstart=99
+autocmd FileType * setlocal foldenable
+
 " set up tabs (note: eventually exceptions could be added for certain files: https://stackoverflow.com/a/51995699
 set tabstop=2
 set shiftwidth=2
