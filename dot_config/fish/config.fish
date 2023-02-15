@@ -48,6 +48,9 @@ set -gx EDITOR nvim
 # include user binaries in the shell path
 fish_add_path ~/.local/bin
 
+# add rust binaries to the shell path
+fish_add_path ~/.cargo/bin
+
 # empty greeting
 function fish_greeting
 end
@@ -67,3 +70,6 @@ fish_vi_key_bindings
 
 # https://github.com/lotabout/skim/issues/3#issuecomment-272785980
 set SKIM_DEFAULT_COMMAND 'git ls-tree -r --name-only HEAD || rg --files'
+
+# The next line updates PATH for Netlify's Git Credential Helper.
+test -f '/Users/jas/Library/Preferences/netlify/helper/path.fish.inc' && source '/Users/jas/Library/Preferences/netlify/helper/path.fish.inc'
