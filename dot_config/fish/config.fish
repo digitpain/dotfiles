@@ -20,6 +20,9 @@ alias vimdiff 'nvim -d'
 # make sure that visual studio code uses wayland
 alias code 'code --enable-features=UseOzonePlatform --ozone-platform=wayland'
 
+# open my agenda.txt
+alias agenda 'nvim ~/Desktop/agenda/agenda.txt'
+
 # get the ip address on macos
 alias ip 'ipconfig getifaddr en0'
 alias wgeth 'echo 0x238c9c645c6EE83d4323A2449C706940321a0cBf'
