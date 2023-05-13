@@ -18,7 +18,10 @@ alias vim nvim
 alias vimdiff 'nvim -d'
 
 # make sure that visual studio code uses wayland
-alias code 'code --enable-features=UseOzonePlatform --ozone-platform=wayland'
+#alias code 'code --enable-features=UseOzonePlatform --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto'
+
+# make sure that visual studio code uses wayland
+alias mongodb-compass 'mongodb-compass --enable-features=UseOzonePlatform --ozone-platform=wayland'
 
 # open my agenda.txt
 alias agenda 'nvim ~/Desktop/agenda/agenda.txt'
@@ -50,6 +53,9 @@ fish_add_path ~/.local/bin
 
 # add rust binaries to the shell path
 fish_add_path ~/.cargo/bin
+
+# add android studio
+fish_add_path /opt/android-studio/bin
 
 # empty greeting
 function fish_greeting
