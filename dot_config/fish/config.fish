@@ -79,3 +79,14 @@ set SKIM_DEFAULT_COMMAND 'git ls-tree -r --name-only HEAD || rg --files'
 
 # The next line updates PATH for Netlify's Git Credential Helper.
 test -f '/Users/jas/Library/Preferences/netlify/helper/path.fish.inc' && source '/Users/jas/Library/Preferences/netlify/helper/path.fish.inc'
+
+# Set the keyboard repeat and delay in milliseconds. Be careful!
+function keyrepeat
+  set interval $argv[1]
+  gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval $interval
+end
+
+function keydelay
+  set delay $argv[1]
+  gsettings set org.gnome.desktop.peripherals.keyboard delay $delay
+end
