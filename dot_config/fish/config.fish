@@ -43,7 +43,7 @@ alias js 'vim (find . -name "*.js" | sk -m -n !node_modules)'
 alias ff "vim (sk -c 'git ls-tree -r --name-only HEAD || ag -l -g \"\"')"
 
 # shortcuts for projects
-alias ac 'cd ~/Desktop/aesthetic.computer'
+alias ac 'cd ~/Desktop/code/aesthetic.computer'
 
 # set default editor to nvim
 set -gx EDITOR nvim
