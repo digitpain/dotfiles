@@ -44,6 +44,7 @@ alias ff "vim (sk -c 'git ls-tree -r --name-only HEAD || ag -l -g \"\"')"
 
 # shortcuts for projects
 alias ac 'cd ~/Desktop/code/aesthetic.computer'
+alias acr 'cd ~/Desktop/code/aesthetic.computer; npm run ac'
 
 # set default editor to nvim
 set -gx EDITOR nvim
