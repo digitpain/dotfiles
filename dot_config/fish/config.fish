@@ -39,7 +39,7 @@ alias fishcfg 'source ~/.config/fish/config.fish'
 alias webp 'fish ~/IdeaProjects/aesthetic.computer/system/public/disks/digitpain/webp.fish'
 
 alias vs 'vim (sk)'
-alias js 'vim (find . -name "*.js" | sk -m -n !node_modules)'
+alias js 'vim (find . -name "*.js" -o -name "*.mjs" | sk -m -n !node_modules)'
 alias ff "vim (sk -c 'git ls-tree -r --name-only HEAD || ag -l -g \"\"')"
 
 # shortcuts for projects
