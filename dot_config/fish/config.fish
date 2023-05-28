@@ -18,7 +18,7 @@ alias vim nvim
 alias vimdiff 'nvim -d'
 
 # make sure that visual studio code uses wayland
-alias code 'code --enable-features=UseOzonePlatform --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto'
+alias code 'code --ozone-platform-hint=auto'
 
 # make sure that visual studio code uses wayland
 alias mongodb-compass 'mongodb-compass --enable-features=UseOzonePlatform --ozone-platform=wayland'
