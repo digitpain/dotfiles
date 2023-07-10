@@ -19,9 +19,7 @@ alias vimdiff 'nvim -d'
 
 # make sure that visual studio code uses wayland
 alias code 'code --ozone-platform=wayland'
-
-# make sure that visual studio code uses wayland
-alias mongodb-compass 'mongodb-compass --enable-features=UseOzonePlatform --ozone-platform=wayland'
+alias mongodb-compass 'mongodb-compass --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland --ignore-additional-command-line-flags'
 
 # open my agenda.txt
 alias agenda 'nvim ~/Desktop/agenda/agenda.txt'
