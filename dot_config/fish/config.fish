@@ -44,6 +44,8 @@ alias ff "vim (sk -c 'git ls-tree -r --name-only HEAD || ag -l -g \"\"')"
 # shortcuts for projects
 alias ac 'cd ~/Desktop/code/aesthetic.computer'
 alias acr 'cd ~/Desktop/code/aesthetic.computer; npm run ac'
+alias acw 'cd ~/Desktop/code/aesthetic.computer/system; npm run watch'
+alias acc 'python3 -m webbrowser https://vscode.dev/github/digitpain/aesthetic.computer-code/blob/main/blank.mjs'
 
 # set default editor to nvim
 set -gx EDITOR nvim
