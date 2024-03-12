@@ -23,6 +23,9 @@ create_symlinks() {
   # link foot (a linux terminal client) config
   rm -rf ~/.config/foot
   ln -s $script_dir/dot_config/foot ~/.config/foot
+
+  # link emacs
+  ln -s $script_dir/dot_config/emacs.el ~/.emacs
 }
 
 create_symlinks
