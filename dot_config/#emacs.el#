@@ -13,7 +13,6 @@
 (setq backup-directory-alist `(("." . "~/.emacs_backups")))
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq vc-follow-symlinks t)
 
 ;; Check if evil is installed, if not, set up package.el for MELPA and install evil.
 (require 'package)

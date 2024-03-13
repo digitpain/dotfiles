@@ -30,22 +30,21 @@ alias ip 'ipconfig getifaddr en0'
 alias wgeth 'echo 0x238c9c645c6EE83d4323A2449C706940321a0cBf'
 
 # shortcuts for editing dot files
-alias ev 'chezmoi edit ~/.config/nvim/init.vim'
-alias ef 'chezmoi edit ~/.config/fish/config.fish'
+#alias ev 'chezmoi edit ~/.config/nvim/init.vim'
+# alias ef 'chezmoi edit ~/.config/fish/config.fish'
 alias fishcfg 'source ~/.config/fish/config.fish'
 
 # shortcuts for aesthetic.computer (macOS only)
-alias webp 'fish ~/IdeaProjects/aesthetic.computer/system/public/disks/digitpain/webp.fish'
+# alias webp 'fish ~/IdeaProjects/aesthetic.computer/system/public/disks/digitpain/webp.fish'
 
 alias vs 'vim (sk)'
 alias js 'vim (find . -name "*.js" -o -name "*.mjs" | sk -m -n !node_modules)'
 alias ff "vim (sk -c 'git ls-tree -r --name-only HEAD || ag -l -g \"\"')"
 
 # shortcuts for projects
-alias ac 'cd ~/Desktop/code/aesthetic.computer'
-alias acr 'cd ~/Desktop/code/aesthetic.computer; npm run ac'
-alias acw 'cd ~/Desktop/code/aesthetic.computer/system; npm run watch'
-alias acc 'python3 -m webbrowser https://vscode.dev/github/digitpain/aesthetic.computer-code/blob/main/blank.mjs'
+alias ac 'cd ~/Desktop/code/aesthetic-computer'
+alias acr 'cd ~/Desktop/code/aesthetic-computer; npm run ac'
+alias acw 'cd ~/Desktop/code/aesthetic-computer/system; npm run watch'
 
 # set default editor to nvim
 set -gx EDITOR nvim
