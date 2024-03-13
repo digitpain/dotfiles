@@ -2,11 +2,15 @@
 
 (setq inhibit-startup-screen t) ;; Disable startup message.
 (setq eshell-banner-message "") ;; No eshell banner.
+
 (load-theme 'wombat t) ;; Set a dark theme.
-(menu-bar-mode -1) ;; Disable the menu bar.
-(tool-bar-mode -1) ;; Disable the tool bar.
-(fringe-mode 0) ;; Disable fringe indicators.
-(scroll-bar-mode -1) ;; Disable scroll bar.
+
+(when (window-system)
+  (menu-bar-mode -1) ;; Disable the menu bar.
+  (tool-bar-mode -1) ;; Disable the tool bar.
+  (fringe-mode 0) ;; Disable fringe indicators.
+  (scroll-bar-mode -1)) ;; Disable scroll bar.
+
 (setq-default line-spacing 0)
 (xterm-mouse-mode 1)
 (defun track-mouse (e))
