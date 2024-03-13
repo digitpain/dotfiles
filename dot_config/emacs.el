@@ -5,6 +5,7 @@
 
 ;; (load-theme 'wombat t) ;; Set a dark theme.
 (setq initial-scratch-message nil) ;; Empty scratch buffer message.
+(global-display-line-numbers-mode) ;; Always show line numbers.
 
 (when (window-system)
   (menu-bar-mode -1) ;; Disable the menu bar.
