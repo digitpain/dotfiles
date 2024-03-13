@@ -3,7 +3,8 @@
 (setq inhibit-startup-screen t) ;; Disable startup message.
 (setq eshell-banner-message "") ;; No eshell banner.
 
-(load-theme 'wombat t) ;; Set a dark theme.
+;; (load-theme 'wombat t) ;; Set a dark theme.
+(setq initial-scratch-message nil) ;; Empty scratch buffer message.
 
 (when (window-system)
   (menu-bar-mode -1) ;; Disable the menu bar.

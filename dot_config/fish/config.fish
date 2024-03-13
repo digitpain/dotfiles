@@ -91,3 +91,34 @@ function keydelay
   set delay $argv[1]
   gsettings set org.gnome.desktop.peripherals.keyboard delay $delay
 end
+
+# Install via: `sudo curl -Lo /usr/bin/theme.sh 'https://git.io/JM70M' && sudo chmod +x /usr/bin/theme.sh`
+if type -q theme.sh
+	if test -e ~/.theme_history
+	theme.sh (theme.sh -l|tail -n1)
+	end
+
+  function TRAPUSR1 --on-signal USR1
+      if test "$scheme" = "night"
+          theme.sh dracula
+      else if test "$scheme" = "day"
+          theme.sh belafonte-day
+      end
+  end
+
+	# Optional
+	# Bind C-o to the last theme.
+	function last_theme
+		theme.sh (theme.sh -l|tail -n2|head -n1)
+	end
+
+	bind \co last_theme
+
+	alias th='theme.sh -i'
+
+	# Interactively load a light theme
+	alias thl='theme.sh --light -i'
+
+	# Interactively load a dark theme
+	alias thd='theme.sh --dark -i'
+end
