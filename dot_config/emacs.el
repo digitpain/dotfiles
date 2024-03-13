@@ -10,7 +10,13 @@
 (defun track-mouse (e))
 (setq mouse-sel-mode t)
 (setq ring-bell-function 'ignore) ;; Ignore scroll bell.
-(setq backup-directory-alist `(("." . "~/.emacs_backups")))
+
+;; Set-up a better backup directory.
+(defvar my-backup-directory "~/.emacs.d/backups/")
+(unless (file-exists-p my-backup-directory)
+  (make-directory my-backup-directory t))
+(setq backup-directory-alist `(("." . ,my-backup-directory)))
+
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq vc-follow-symlinks t)
