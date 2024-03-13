@@ -1,3 +1,5 @@
+;; Aesthetic Computer Emacs Configuration, 2024.3.13.12.51
+
 (setq inhibit-startup-screen t) ;; Disable startup message.
 (setq eshell-banner-message "") ;; No eshell banner.
 (load-theme 'wombat t) ;; Set a dark theme.
@@ -21,48 +23,46 @@
 (setq-default tab-width 2)
 (setq vc-follow-symlinks t)
 
-;; Check if evil is installed, if not, set up package.el for MELPA and install evil.
+;; Initialize package sources
 (require 'package)
-(unless (package-installed-p 'prettier-js)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  (package-initialize)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;; Install and configure use-package
+(unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (package-install 'evil)
-  (package-install 'prettier-js) ;; Requires npm install -g prettier
-  ;; (package-install 'lsp-mode)
-  ;;(package-install 'tree-sitter)
-  ;;(package-install 'tree-sitter-langs)
-  )
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
 
-(require 'evil) ;; Enable evil.
-(evil-mode 1)
-(setq-default evil-shift-width 2)
+;; Evil mode configuration
+(use-package evil
+  :config
+  (evil-mode 1)
+  (setq-default evil-shift-width 2))
 
-;; Enable JavaScript support.
-;;(require 'tree-sitter)
-;;(require 'tree-sitter-langs)
-;; Install all the latest tree-sitter grammars.
-;; (tree-sitter-langs-install-latest-grammar)
+;; Dockerfile mode configuration with a depdency on `s`.
+(use-package s :ensure t)
+(use-package dockerfile-mode :ensure t)
 
-;; (tree-sitter-require 'typescript)
-;; (add-hook 'js-mode-hook #'tree-sitter-hl-mode)
-;; (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-mode . typescript))
+;; Prettier-js configuration
+(use-package prettier-js
+  :hook (js-mode . prettier-js-mode)
+  :bind ("C-c p" . prettier-js))
 
-(add-hook 'js-mode-hook 'prettier-js-mode) ;; Enable prettier-js.
-(global-set-key (kbd "C-c p") 'prettier-js)
+;; Dockerfile mode configuration
+;; (use-package dockerfile-mode
+;;  :mode "Dockerfile\\'")
 
-(add-hook 'js-mode-hook 'eglot-ensure)
-;; (add-hook 'typescript-mode-hook 'eglot-ensure)
+;; Add more use-package blocks for other packages as needed
 
-;; (add-hook 'js-mode-hook #'lsp) ;; Enable lsp on js.
-;; (add-hook 'js-mode-hook #'lsp-deferred) ;; Enable lsp on js.
 (add-to-list 'auto-mode-alist '("\\.mjs\\'" . js-mode)) ;; Support mjs files.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(lsp-mode prettier-js evil)))
+ '(package-selected-packages '(prettier-js evil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
