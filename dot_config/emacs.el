@@ -47,9 +47,9 @@
   (evil-mode 1)
   (setq-default evil-shift-width 2))
 
-;; Dockerfile mode configuration with a depdency on `s`.
-(use-package s :ensure t)
-(use-package dockerfile-mode :ensure t)
+(use-package dockerfile-mode :ensure t) ;; Dockerfile support.
+(use-package s :ensure t) ;; Docker depends on `s`.
+(use-package fish-mode :ensure t) ;; Fish shell syntax.
 
 ;; Prettier-js configuration
 (use-package prettier-js
@@ -75,3 +75,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'erase-buffer 'disabled nil)
