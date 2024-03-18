@@ -135,6 +135,11 @@
   :hook (js-mode . prettier-js-mode)
   :bind ("C-c p" . prettier-js))
 
+;; Use good clipboard system in terminal mode.
+(use-package clipetty
+  :ensure t
+  :hook (after-init . global-clipetty-mode))
+
 ;; Add more use-package blocks for other packages as needed
 
 (add-to-list 'auto-mode-alist '("\\.mjs\\'" . js-mode)) ;; Support mjs files.
@@ -146,20 +151,6 @@
   (eshell)
   (insert "python3 -m http.server 8888")
   (eshell-send-input))
-
-(defun lights ()
-  "Toggle between gruvbox-light-medium and gruvbox-dark-soft themes, and update terminal theme accordingly."
-  (interactive)
-  (cond ((member 'gruvbox-dark-soft custom-enabled-themes)
-         (disable-theme 'gruvbox-dark-soft)
-         (load-theme 'gruvbox-light-medium t)
-         (shell-command "theme.sh gruvbox-light-medium"))
-        (t
-         (disable-theme 'gruvbox-light-medium)
-         (load-theme 'gruvbox-dark-soft t)
-         (shell-command "theme.sh gruvbox-dark-soft"))))
-
-;; (global-set-key (kbd "C-c r") 'aesthetic) ;; Bind the function to Ctrl+c r.
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
