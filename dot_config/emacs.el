@@ -1,9 +1,16 @@
 ;; Aesthetic Computer Emacs Configuration, 2024.3.13.12.51
 
+;; Open emacs maximized and with undecorated window.
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(undecorated . t))
+
+;; Set the internal border width and color
+(add-to-list 'default-frame-alist '(internal-border-width . 6)) ;; Adjust the border width as needed
+
 (setq inhibit-startup-screen t) ;; Disable startup message.
 (setq eshell-banner-message "") ;; No eshell banner.
 
-(load-theme 'wombat t) ;; Set a dark theme.
+;; (load-theme 'wombat t) ;; Set a dark theme.
 (setq initial-scratch-message nil) ;; Empty scratch buffer message.
 (global-display-line-numbers-mode) ;; Always show line numbers.
 
@@ -14,17 +21,17 @@
 
 (add-hook 'eshell-mode-hook 'disable-line-numbers-in-eshell)
 
-(menu-bar-mode -1) ;; Disable the menu bar.
-
 ;; Only show emergency warnings.
 (add-hook 'after-init-hook
           (lambda ()
             (setq warning-minimum-level :emergency)))
 
 (when (window-system)
-  (tool-bar-mode -1) ;; Disable the tool bar.
   (fringe-mode 0) ;; Disable fringe indicators.
   (scroll-bar-mode -1)) ;; Disable scroll bar.
+
+(menu-bar-mode -1) ;; Disable the menu bar.
+(tool-bar-mode -1) ;; Disable the tool bar.
 
 ;; TODO: This should only be on linux.
 ;; (setq interprogram-cut-function
@@ -68,14 +75,44 @@
 (use-package evil
   :config
   (evil-mode 1)
-  (setq-default evil-shift-width 2))
+  (setq-default evil-shift-width 2)
+  ;; override C-p in evil mode
+  (dolist (state '(normal insert visual motion emacs))
+    (evil-define-key state 'global (kbd "C-p") 'project-find-file)))
 
-(use-package s :ensure t) ;; `dockerfile-mode` depends on `s`.
-(use-package dockerfile-mode :ensure t) ;; Dockerfile support.
-(use-package fish-mode :ensure t) ;; Fish shell syntax.
-;; (use-package gptel :ensure t) ;; ChatGPT / LLM support. 
+(use-package helm) ;; Add helm: https://github.com/emacs-helm/helm/wiki#from-melpa  
+
+(use-package helm
+  :config
+  (setq helm-M-x-fuzzy-match t) ;; Optional: Fuzzy match for M-x
+  (setq helm-mode-fuzzy-match t) ;; Optional: Fuzzy match for helm-mode
+  (setq helm-ff-fuzzy-matching t) ;; Enable fuzzy matching for file and buffer names
+  (helm-mode 1))
+
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "C-p") #'project-find-file) ;; C-p everywhere
+
+(global-set-key (kbd "C-<tab>") 'next-buffer) ;; Cycle buffers
+(global-set-key (kbd "C-<iso-lefttab>") 'previous-buffer)
+
+(defun my/helm-find-files-directory-handler ()
+  "Open helm-find-files if Emacs is started with a directory."
+  (when (and command-line-args-left (file-directory-p (car command-line-args-left)))
+    (helm-find-files-1 (car command-line-args-left))
+    (setq command-line-args-left nil))
+  nil)
+
+(add-to-list 'command-line-functions 'my/helm-find-files-directory-handler)
+
+(global-set-key (kbd "M-z") 'toggle-truncate-lines) ;; alt-z for wrap.
+
+(use-package s) ;; `dockerfile-mode` depends on `s`.
+(use-package dockerfile-mode) ;; Dockerfile support.
+(use-package fish-mode) ;; Fish shell syntax.
+;; (use-package gptel) ;; ChatGPT / LLM support. 
 (use-package chatgpt-shell
-  :ensure t
   :custom
   ((chatgpt-shell-openai-key
     (lambda ()
