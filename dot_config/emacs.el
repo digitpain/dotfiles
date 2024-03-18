@@ -10,7 +10,6 @@
 (setq inhibit-startup-screen t) ;; Disable startup message.
 (setq eshell-banner-message "") ;; No eshell banner.
 
-;; (load-theme 'wombat t) ;; Set a dark theme.
 (setq initial-scratch-message nil) ;; Empty scratch buffer message.
 (global-display-line-numbers-mode) ;; Always show line numbers.
 
@@ -71,6 +70,9 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(use-package gruvbox-theme)
+(load-theme 'gruvbox-light-medium t) ;; Set a theme.
+
 ;; Evil mode configuration
 (use-package evil
   :config
@@ -79,6 +81,15 @@
   ;; override C-p in evil mode
   (dolist (state '(normal insert visual motion emacs))
     (evil-define-key state 'global (kbd "C-p") 'project-find-file)))
+
+;;(unless (window-system)
+;;  (require 'evil-terminal-cursor-changer)
+;;  (evil-terminal-cursor-changer-activate)) ; Activates the cursor change
+;;(setq evil-insert-state-cursor 'bar)  ; Line cursor for insert state
+(unless (display-graphic-p)
+        (use-package evil-terminal-cursor-changer)
+        (require 'evil-terminal-cursor-changer)
+        (evil-terminal-cursor-changer-activate))
 
 (use-package helm) ;; Add helm: https://github.com/emacs-helm/helm/wiki#from-melpa  
 
@@ -136,6 +147,18 @@
   (insert "python3 -m http.server 8888")
   (eshell-send-input))
 
+(defun lights ()
+  "Toggle between gruvbox-light-medium and gruvbox-dark-soft themes, and update terminal theme accordingly."
+  (interactive)
+  (cond ((member 'gruvbox-dark-soft custom-enabled-themes)
+         (disable-theme 'gruvbox-dark-soft)
+         (load-theme 'gruvbox-light-medium t)
+         (shell-command "theme.sh gruvbox-light-medium"))
+        (t
+         (disable-theme 'gruvbox-light-medium)
+         (load-theme 'gruvbox-dark-soft t)
+         (shell-command "theme.sh gruvbox-dark-soft"))))
+
 ;; (global-set-key (kbd "C-c r") 'aesthetic) ;; Bind the function to Ctrl+c r.
 
 (custom-set-variables
@@ -143,6 +166,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("046a2b81d13afddae309930ef85d458c4f5d278a69448e5a5261a5c78598e012" "98ef36d4487bf5e816f89b1b1240d45755ec382c7029302f36ca6626faf44bbd" "871b064b53235facde040f6bdfa28d03d9f4b966d8ce28fb1725313731a2bcc8" default))
  '(package-selected-packages '(gptel prettier-js evil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
