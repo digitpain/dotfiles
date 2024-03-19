@@ -73,6 +73,13 @@
 (use-package gruvbox-theme)
 (load-theme 'gruvbox-light-medium t) ;; Set a theme.
 
+(use-package helm ;; Add helm: https://github.com/emacs-helm/helm/wiki#from-melpa  
+  :config
+  (setq helm-M-x-fuzzy-match t) ;; Optional: Fuzzy match for M-x
+  (setq helm-mode-fuzzy-match t) ;; Optional: Fuzzy match for helm-mode
+  (setq helm-ff-fuzzy-matching t) ;; Enable fuzzy matching for file and buffer names
+  (helm-mode 1))
+
 ;; Evil mode configuration
 (use-package evil
   :config
@@ -90,15 +97,6 @@
         (use-package evil-terminal-cursor-changer)
         (require 'evil-terminal-cursor-changer)
         (evil-terminal-cursor-changer-activate))
-
-(use-package helm) ;; Add helm: https://github.com/emacs-helm/helm/wiki#from-melpa  
-
-(use-package helm
-  :config
-  (setq helm-M-x-fuzzy-match t) ;; Optional: Fuzzy match for M-x
-  (setq helm-mode-fuzzy-match t) ;; Optional: Fuzzy match for helm-mode
-  (setq helm-ff-fuzzy-matching t) ;; Enable fuzzy matching for file and buffer names
-  (helm-mode 1))
 
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
@@ -119,6 +117,10 @@
 
 (global-set-key (kbd "M-z") 'toggle-truncate-lines) ;; alt-z for wrap.
 
+(add-hook 'after-init-hook
+          (lambda ()
+            (setq-default truncate-lines t))) ;; Disable truncation by default.
+
 (use-package s) ;; `dockerfile-mode` depends on `s`.
 (use-package dockerfile-mode) ;; Dockerfile support.
 (use-package fish-mode) ;; Fish shell syntax.
@@ -136,9 +138,9 @@
   :bind ("C-c p" . prettier-js))
 
 ;; Use good clipboard system in terminal mode.
-(use-package clipetty
-  :ensure t
-  :hook (after-init . global-clipetty-mode))
+;; (use-package clipetty
+;;  :ensure t
+;;  :hook (after-init . global-clipetty-mode))
 
 ;; Add more use-package blocks for other packages as needed
 
