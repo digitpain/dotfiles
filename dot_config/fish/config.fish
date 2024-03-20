@@ -47,7 +47,7 @@ alias acr 'cd ~/Desktop/code/aesthetic-computer; npm run ac'
 alias acw 'cd ~/Desktop/code/aesthetic-computer/system; npm run watch'
 
 # set default editor to nvim
-set -gx EDITOR nvim
+set -gx EDITOR emacs -nw
 
 # include user binaries in the shell path
 fish_add_path ~/.local/bin
@@ -91,6 +91,47 @@ function keydelay
   set delay $argv[1]
   gsettings set org.gnome.desktop.peripherals.keyboard delay $delay
 end
+
+# a shell-gpt shortcut (must be all lowercase / otherwise quoted)
+function umm
+    # Use string escape to handle special characters
+    set -l args (string join " " $argv)
+
+    # Pass the joined, escaped string to sgpt
+    sgpt --chat umm "$args"
+end
+
+function code
+    if set -q argv[1]
+        set -l args (string join " " $argv)
+        sgpt --code --chat code "$args" 
+    else
+        sgpt --code --editor --chat code
+    end
+end
+
+function copy
+    # Extract everything from the chat after the last "assistant: " line.
+    set content (sgpt --show-chat code | tac | sed '/^assistant: /q' | tac | sed '1s/^assistant: //')
+    printf "%s\n" $content | xclip -selection clipboard
+end
+
+function done 
+    rm /tmp/chat_cache/code 2>/dev/null
+    echo "bye :)"
+end
+
+function ok
+  rm /tmp/chat_cache/umm 2>/dev/null
+  echo "bye :)"
+end
+
+function forget
+  rm /tmp/chat_cache/umm 2>/dev/null
+  echo "umm, i forgot :)"
+end
+
+alias nvm 'forget'
 
 # Install via: `sudo curl -Lo /usr/bin/theme.sh 'https://git.io/JM70M' && sudo chmod +x /usr/bin/theme.sh`
 if type -q theme.sh

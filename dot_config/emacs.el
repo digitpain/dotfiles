@@ -97,6 +97,7 @@
   :config
   (setq helm-M-x-fuzzy-match t) ;; Optional: Fuzzy match for M-x
   (setq helm-mode-fuzzy-match t) ;; Optional: Fuzzy match for helm-mode
+  (setq helm-split-window-in-side-p t) ;; Optional: Have helm open in current window.
   (setq helm-ff-fuzzy-matching t) ;; Enable fuzzy matching for file and buffer names
   (helm-mode 1))
 
@@ -184,9 +185,9 @@
  '(package-selected-packages
    '(vterm evil-terminal-cursor-changer restart-emacs prettier-js helm fish-mode evil dockerfile-mode clipetty chatgpt-shell)))
 
-(desktop-save-mode 1)
-(setq desktop-save 'if-exists)
-(setq desktop-dirname "~/.emacs.d/desktop/")
+;; (desktop-save-mode 1)
+;; (setq desktop-save 'if-exists)
+;; (setq desktop-dirname "~/.emacs.d/desktop/")
 
 ;; sudo dnf install cmake libtool libvterm
 ;; (use-package vterm)
@@ -206,3 +207,25 @@
 ;;  (evil-local-mode -1))
 
 ;; (add-hook 'vterm-mode-hook 'disable-evil-in-vterm)
+
+(defun aesthetic-backend ()
+  "Run npm commands in vterm in a new tab named 'backend', each in a specified directory and in a split pane."
+  (interactive)
+  ;; Set the directory path
+  (let ((directory-path "~/Desktop/code/aesthetic-computer/micro")
+        (commands '("shell" "redis" "code" "session" "edge" "stripe" "url")))
+    ;; Create a new tab and name it "backend"
+    (tab-new)
+    (tab-rename "backend")
+    ;; Iterate over the commands
+    (dolist (cmd commands)
+      ;; Split the window before opening a new vterm
+      ;; Use 'split-window-right' or 'split-window-below' as needed
+      (unless (one-window-p)
+        (split-window-below))
+      (other-window 1)
+      ;; Change to the specified directory and open a new vterm for each command
+      (let ((default-directory directory-path))
+        (vterm (format "npm run %s" cmd)))
+      ;; Optionally, balance windows after opening each vterm
+      (balance-windows))))
