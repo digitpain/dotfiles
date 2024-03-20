@@ -4,10 +4,6 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(undecorated . t))
 
-(desktop-save-mode 1)
-(setq desktop-save 'if-exists)
-(setq desktop-dirname "~/.emacs.d/desktop/")
-
 (tab-bar-mode t) ;; Enable the tab bar mode.
 (setq tab-bar-new-tab-choice "*dashboard*")
 (setq tab-bar-hints t)
@@ -35,12 +31,15 @@
 
 (add-to-list 'auto-mode-alist '("\\.mjs\\'" . js-mode)) ;; Support mjs files.
 
-(defun disable-line-numbers-in-eshell () ;; Except when in an `eshell`.
-  "Disable line numbers in eshell."
-  (when (derived-mode-p 'eshell-mode)
+(defun disable-line-numbers-in-modes ()
+  "Disable line numbers in eshell and vterm."
+  (when (or (derived-mode-p 'eshell-mode)
+            (derived-mode-p 'vterm-mode))
     (display-line-numbers-mode -1)))
 
-(add-hook 'eshell-mode-hook 'disable-line-numbers-in-eshell)
+;; Adding hooks for both eshell and vterm
+(add-hook 'eshell-mode-hook 'disable-line-numbers-in-modes)
+(add-hook 'vterm-mode-hook 'disable-line-numbers-in-modes)
 
 ;; Only show emergency warnings.
 (add-hook 'after-init-hook
@@ -65,6 +64,12 @@
 (unless (file-exists-p my-backup-directory)
   (make-directory my-backup-directory t))
 (setq backup-directory-alist `(("." . ,my-backup-directory)))
+
+;; Set-up a directory for auto-save files.
+(defvar my-auto-save-directory "~/.emacs.d/auto-saves/")
+(unless (file-exists-p my-auto-save-directory)
+  (make-directory my-auto-save-directory t))
+(setq auto-save-file-name-transforms `((".*" ,my-auto-save-directory t)))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
@@ -159,7 +164,7 @@
 
 ;; This package breaks terminal rendering :(
 ;; (use-package gruvbox-theme)
-(load-theme 'whiteboard t) ;; Set a theme.
+;; (load-theme 'whiteboard t) ;; Set a theme.
 
 ;; 🫀 Aesthetic Computer Layouts
 
@@ -170,10 +175,34 @@
   (eshell)
   (insert "python3 -m http.server 8888")
   (eshell-send-input))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(evil-terminal-cursor-changer restart-emacs prettier-js helm fish-mode evil dockerfile-mode clipetty chatgpt-shell)))
+   '(vterm evil-terminal-cursor-changer restart-emacs prettier-js helm fish-mode evil dockerfile-mode clipetty chatgpt-shell)))
+
+(desktop-save-mode 1)
+(setq desktop-save 'if-exists)
+(setq desktop-dirname "~/.emacs.d/desktop/")
+
+;; sudo dnf install cmake libtool libvterm
+;; (use-package vterm)
+
+;; (defun open-fish-or-eshell-if-no-file ()
+;;   "Open vterm with fish shell or eshell if no file is specified in the arguments."
+;;   (unless (or (not command-line-args-left)      ;; If there are no arguments left.
+;;               (cdr command-line-args-left))     ;; Or if there's more than one argument.
+;;     (let ((fish-path (executable-find "fish")))
+;;       (if fish-path
+;;           (vterm fish-path "fish")
+;;         (eshell)))))
+;; 
+;; (add-hook 'emacs-startup-hook 'open-fish-or-eshell-if-no-file)
+
+;; (defun disable-evil-in-vterm ()
+;;  (evil-local-mode -1))
+
+;; (add-hook 'vterm-mode-hook 'disable-evil-in-vterm)
