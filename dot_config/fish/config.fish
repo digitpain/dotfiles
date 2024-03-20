@@ -101,6 +101,10 @@ function umm
     sgpt --chat umm "$args"
 end
 
+function umms
+    sgpt --show-chat umm
+end
+
 function code
     if set -q argv[1]
         set -l args (string join " " $argv)
@@ -108,6 +112,10 @@ function code
     else
         sgpt --code --editor --chat code
     end
+end
+
+function codes
+    sgpt --show-chat code
 end
 
 function copy
