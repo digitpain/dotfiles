@@ -1,26 +1,24 @@
 ;; Aesthetic Computer Emacs Configuration, 2024.3.13.12.51
 
 ;; Open emacs maximized and with undecorated window.
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-(add-to-list 'default-frame-alist '(undecorated . t))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(undecorated . t))
 
 (tab-bar-mode t) ;; Enable the tab bar mode.
-(setq tab-bar-new-tab-choice "*dashboard*")
+(setq tab-bar-new-tab-choice "*scratch*")
 (setq tab-bar-hints t)
-(setq tab-bar-format '(tab-bar-format-history
+(setq tab-bar-format '(;; tab-bar-format-history
                        tab-bar-format-tabs
                        tab-bar-separator))
 (setq tab-bar-close-button-show nil)
+;; (setq tab-line-tab-max-width 20) ; Adjust the number as needed
 
-(custom-set-faces
+;;(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(tab-bar ((t (:height 1.2)))))
-
-;; modeline settings
-'(mode-line ((t (:underline nil :overline nil :box (:line-width 8 :color "#353644" :style nil) :foreground "white" :background "#353644"))))
+;; '(tab-bar ((t (:height 1.0)))))
 
 (setq inhibit-startup-screen t) ;; Disable startup message.
 (setq eshell-banner-message "") ;; No eshell banner.
@@ -209,23 +207,50 @@
 ;; (add-hook 'vterm-mode-hook 'disable-evil-in-vterm)
 
 (defun aesthetic-backend ()
-  "Run npm commands in vterm in a new tab named 'backend', each in a specified directory and in a split pane."
+  "Run npm commands in vterm, each in a new tab named after the command. Use 'prompt' for 'shell' and 'url' in split panes, and 'stripe' for 'stripe-print' and 'stripe-ticket'."
   (interactive)
-  ;; Set the directory path
+  ;; Define the directory path
   (let ((directory-path "~/Desktop/code/aesthetic-computer/micro")
-        (commands '("shell" "redis" "code" "session" "edge" "stripe" "url")))
-    ;; Create a new tab and name it "backend"
-    (tab-new)
-    (tab-rename "backend")
+        (commands '("shell" "url" "code" "session" "redis" "edge" "stripe-print" "stripe-ticket"))
+        prompt-tab-created stripe-tab-created)
     ;; Iterate over the commands
     (dolist (cmd commands)
-      ;; Split the window before opening a new vterm
-      ;; Use 'split-window-right' or 'split-window-below' as needed
-      (unless (one-window-p)
-        (split-window-below))
-      (other-window 1)
-      ;; Change to the specified directory and open a new vterm for each command
-      (let ((default-directory directory-path))
-        (vterm (format "npm run %s" cmd)))
-      ;; Optionally, balance windows after opening each vterm
-      (balance-windows))))
+      (cond
+       ;; For 'shell' and 'url', split the 'prompt' tab
+       ((or (string= cmd "shell") (string= cmd "url"))
+        (unless prompt-tab-created
+          (tab-new)
+          (tab-rename "prompt")
+          (setq prompt-tab-created t))
+        (when (string= cmd "url")
+          (split-window-right)
+          (other-window 1))
+        (let ((default-directory directory-path))
+          ;; Open a new vterm and send the command
+          (vterm)
+          (vterm-send-string (format "npm run %s\n" cmd))
+          (rename-buffer (format "vterm-%s" cmd) t)))
+       ;; For 'stripe-print' and 'stripe-ticket', split the 'stripe' tab vertically
+       ((or (string= cmd "stripe-print") (string= cmd "stripe-ticket"))
+        (unless stripe-tab-created
+          (tab-new)
+          (tab-rename "stripe")
+          (setq stripe-tab-created t))
+        (when (string= cmd "stripe-ticket")
+          (split-window-below)
+          (other-window 1))
+        (let ((default-directory directory-path))
+          ;; Open a new vterm and send the command
+          (vterm)
+          (vterm-send-string (format "npm run %s\n" cmd))
+          (rename-buffer (format "vterm-%s" cmd) t)))
+       ;; For other commands, create new tabs
+       (t
+        (tab-new)
+        (tab-rename (format "%s" cmd))
+        (let ((default-directory directory-path))
+          ;; Open a new vterm and send the command
+          (vterm)
+          (vterm-send-string (format "npm run %s\n" cmd))
+          (rename-buffer (format "vterm-%s" cmd) t))))))
+)
